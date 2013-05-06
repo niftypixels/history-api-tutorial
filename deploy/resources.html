@@ -1,7 +1,7 @@
 <html>
 	<head>
-		<title>{% block title %}{% endblock title %}</title>
-		<link rel="stylesheet" href="{{ STATIC_URL }}css/style.css" />
+		<title>Resources</title>
+		<link rel="stylesheet" href="static/css/style.css" />
 		<link rel="shortcut icon" href="http://media.netmagazine.futurecdn.net/sites/all/themes/netmag/favicon.ico" type="image/x-icon" />
 	</head>
 	<body>
@@ -27,23 +27,37 @@
 						</ol>
 					</nav>
 
-					<div class="span9 {% block page_class %}{% endblock page_class %}" data-transitional="content" data-transitional-id="{% block transitional_id  %}default{% endblock transitional_id %}">
-						{% block content %}
-							<h1>BASE</h1>
-						{% endblock content %}
+					<div class="span9 resources" data-transitional="content" data-transitional-id="default">
+						
+	<h1 class="title"><strong>/Resources/</strong></h1>
+	<p class="lead">Further reading and next steps</p>
+
+	<div class="tutorial">
+		<h3>What's next?</h3>
+		<p>
+			This <b>History API</b> is an incredibly broad subject and we've only just scratched the surface.
+			We still need to cover:
+			<ul>
+				<li>Routing and garbage collection in JavaScript classes</li>
+				<li></li>
+			</ul>
+			In the next tutorial we'll use server-side scripting
+		</p>
+	</div>
+
 					</div>
 				</div>
 			</div>
 			<footer>
 
 			</footer>
-			<script src="{{STATIC_URL}}js/libs/jquery.js"></script>
-			<script src="{{STATIC_URL}}js/libs/jquery.history.js"></script>
-			<script src="{{STATIC_URL}}js/libs/jquery.transit.js"></script>
+			<script src="static/js/libs/jquery.js"></script>
+			<script src="static/js/libs/jquery.history.js"></script>
+			<script src="static/js/libs/jquery.transit.js"></script>
 
-			{% block javascripts %}
-			<script src="{{STATIC_URL}}js/prep.js"></script>
-			{% endblock javascripts %}
+			
+			<script src="static/js/prep.js"></script>
+			
 		</div>
 	</body>
 </html>
