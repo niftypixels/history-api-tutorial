@@ -57,35 +57,40 @@
 		</p>
 
 		<p>
-			The History API is actually really small; at its core <b>pushState</b> triggers and <b>popstate</b> listens for location-change events:
+			The History API is really small; at its core <b>pushState</b> changes the browser location-bar and triggers a <b>popstate</b> event.
 <pre>
 window.addEventListener("popstate", function(e) { // list for the change
 	// location has changed
 });
 
-history.pushState({ foo: "bar"}, "Some Title", "/some/url"); // request a location change
+history.pushState({ foo: "bar"}, "Example Title", "/change/the/location"); // request a location change
 </pre>
-			Notice the <i>location has changed</i> comment?
-			This is precisely where the History API becomes an incredibly broad, sink-or-swim topic.
-			We've just entered a contract where we are responsible for manually rendering a URL request.
-		</p>
-
-<pre>
-window.addEventListener("popstate", function(e) { // list for the change
-	// location has changed
-});
-
-history.pushState({ foo: "bar"}, "Some Title", "/some/url"); // request a location change
-</pre>
-
-		<p>
-			This tutorial focuses on <b>pushState</b> preparedness and best practices in order to lay a foundation for a successful and flexible <b>pushState</b> solution.
+			The URL in our location-bar changed and the browser doesn't reload.
+			For such a simple result, the outcome is strikingly important; we've just inherited the most crucial responsibility of the internet - we must respond to a URL request with an accurate result.
 		</p>
 		<p>
-			If you're looking for a quick <b>pushState</b> solution, then you can <a href="https://github.com/browserstate/ajaxify/blob/master/ajaxify-html5.js">"ajaxify your entire website instantly"</a> here.
+			URLs are the fabric of the internet so we'll want to think critically about our approach and goals for overriding years of browser experience and care.
+			This tutorial aims to provide a foundation of knoweldge and thoughtfulness around the History API by:
+			<ul>
+				<li>Studying URL design and the affectiveness of a traditional web architecure with and without the History API</li>
+				<li>Using the History API to develop a flexible but reliable site framework that promotes iterative improvements to load-time perceptions and seemless page transitions.</li>
+				<li>Approaching pushState use from an adaptive perspective that balances the tradeoffs of missing or varying History API implementations.</li>
+			</ul>
 		</p>
 		<p>
-			For the patient though, let's dive into some architectural strategies and preparations that make the History API a lot more fun and flexible to leverage.
+			If you'd prefer a TL;DR; approach to <b>pushState</b>, then have a look at the ajaxify-html5 script that <a href="https://github.com/browserstate/ajaxify/blob/master/ajaxify-html5.js">"ajaxifies your entire website instantly"</a>.
+			It "hijacks" all your site URLs and cross-fades between page requests.
+			<figure>
+				<img src="static/img/didnt-read.jpg" alt="LOL Didn't read">
+				<figcaption class="muted">
+					The ajaxify-html5.js script is actually a great crash course in brute-forcing the History API into your site.
+					The script showcases some valuable solutions for parsing titles, CSS, and JavaScript resources from incoming pages.
+				</figcaption>
+			</figure>
+		</p>
+		<p>
+			Otherwise, let's ease into this <b>pushState</b> thing by first discussing
+			We'll focus on laying the foundation for a flexible and maintainable History API solution.
 		</p>
 	</div>
 
