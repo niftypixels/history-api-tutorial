@@ -6,18 +6,38 @@
 
 {% block content %}
 	<h1 class="title"><strong>/Resources/</strong></h1>
-	<p class="lead">Further reading and next steps</p>
+	<p class="lead">More reading on the subject of state management on the History API</p>
 
 	<div class="tutorial">
-		<h3>What's next?</h3>
+		<h3>HTML5 History API Resources</h3>
 		<p>
-			This <b>History API</b> is an incredibly broad subject and we've only just scratched the surface.
-			We still need to cover:
 			<ul>
-				<li>Routing and garbage collection in JavaScript classes</li>
-				<li></li>
+				<li><a href="http://diveintohtml5.info/history.html" target="_blank">Manipulating History for Fun & Profit</a> - Dive into HTML5 intoduction to the history API</li>
+				<li><a href="https://github.com/browserstate/history.js" target="_blank">History.js library</a> - Normalizes browser History API inconsistencies and provides links to demos and more resources on the History API.</li>
+				<li><a href="https://github.com/browserstate/history.js/wiki/Intelligent-State-Handling" target="_blank">Intelligent State Handling</a> - Benjamin Lupton's History.js wiki entry on hashbangs, hashes, pushState and popState.</li>
+				<li><a href="http://engineering.twitter.com/2012/12/implementing-pushstate-for-twittercom_7.html" target="_blank">Implementing pushState for Twitter.com</a> - Engineering blog on Twitter's progressive enhancement implementation of pushState.</li>
 			</ul>
-			In the next tutorial we'll use server-side scripting
+		</p>
+
+		<h3>Inspiration</h3>
+		<p>
+			GitHub uses <a href="https://github.com/defunkt/jquery-pjax/tree/heroku" target="_blank">jquery-pjax</a> and the History API to traverse a code repository tree.
+			Clicking on folders or files transitions content from left to right when drilling down, and right to left when surfacing back up the project tree.
+			This elegant addition reinforces the concept of heiarchy and organization, and provides visual queues that direct our attention to priorty content.
+			<figure>
+				<img src="{{ STATIC_URL }}img/github-screen-shot.jpg" alt="Github project tree">
+				<figcaption class="muted">
+					The GitHub project tree is progressively enhanced with the History API and CSS transitions.
+					GitHub falls back to standard page-refreshes on legacy browsers.
+				</figcaption>
+			</figure>
+
+			Here are a couple valuable resources by GitHub's Kyle Neath on the topics of the History API and URL design:
+
+			<ul>
+				<li><a href="http://warpspire.com/talks/responsive/" target="_blank">Responsive web design from the future</a> - Kyle Neath's slides on pushState, replaceState, and hashbangs!#.</li>
+				<li><a href="http://warpspire.com/experiments/history-api/?max_id=331414989858557952" target="_blank">Infinite Scroll + HTML5 History API</a> - example using the History API to maintain current state while using an infinite scroll component.</li>
+			</ul>
 		</p>
 	</div>
 {% endblock content %}
