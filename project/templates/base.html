@@ -1,0 +1,49 @@
+<html>
+	<head>
+		<title>{% block title %}{% endblock title %}</title>
+		<link rel="stylesheet" href="{{ STATIC_URL }}css/style.css" />
+		<link rel="shortcut icon" href="http://media.netmagazine.futurecdn.net/sites/all/themes/netmag/favicon.ico" type="image/x-icon" />
+	</head>
+	<body>
+		<div id="container">
+			<header>
+				<div class="banner">
+					<a href="http://www.netmagazine.com/" class="logo">
+						<img src="http://media.netmagazine.futurecdn.net/sites/all/themes/netmag/logo.png" alt="Netmagazine logo" />
+						<small class="muted">Tutorial</small>
+					</a>
+					<h2 class="muted">Extending your brand beyond the URL</h2>
+				</div>
+			</header>
+
+			<div id="main" class="container-fluid">
+				<div class="row-fluid">
+					<nav role="main" class="span3">
+						<ol class="nav nav-list">
+							<li><a href="/">Overview</a></li>
+							<li><a href="/preparation.html">Prep</a></li>
+							<li><a href="/transitions.html" data-history="true">Transitions</a></li>
+							<li><a href="/resources.html" data-history="true">Resources</a></li>
+						</ol>
+					</nav>
+
+					<div class="span9 {% block page_class %}{% endblock page_class %}" data-transitional="content" data-transitional-id="{% block transitional_id  %}default{% endblock transitional_id %}">
+						{% block content %}
+							<h1>BASE</h1>
+						{% endblock content %}
+					</div>
+				</div>
+			</div>
+			<footer>
+
+			</footer>
+			<script src="{{STATIC_URL}}js/libs/jquery.js"></script>
+			<script src="{{STATIC_URL}}js/libs/jquery.history.js"></script>
+			<script src="{{STATIC_URL}}js/libs/jquery.transit.js"></script>
+
+			{% block javascripts %}
+			<script src="{{STATIC_URL}}js/prep.js"></script>
+			{% endblock javascripts %}
+		</div>
+	</body>
+</html>

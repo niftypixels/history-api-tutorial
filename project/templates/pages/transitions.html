@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Transitions{% endblock title %}
+
+{% block page_class %}transitions{% endblock page_class %}
+
+{% block content %}
+	<h1 class="title"><strong>/Transitions/</strong></h1>
+	<p class="lead">Some thing</p>
+
+	<nav role="subnav" class="span4" data-transitional="header" data-transitional-id="{% block subnav_id %}about{% endblock subnav_id %}">
+		{% block subnav %}
+		<ul class="nav nav-list">
+			<li class="nav-header">Subsections</li>
+			<li class="active"><a href="/about/1" title="About 1" data-history="true">About 1</a></li>
+			<li><a href="/about/2" title="About 2" data-history="true">About 2</a></li>
+		</ul>
+		{% endblock subnav %}
+	</nav>
+
+	<div class="tutorial">
+		<p>
+
+		</p>
+	</div>
+{% endblock content %}

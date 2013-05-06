@@ -1,0 +1,26 @@
+{
+  "name": "tutorial",
+  "version": "0.1.0",
+  "author": "RED Interactive <geeks@ff0000.com>",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "__PROJECT_REPOSITORY__"
+  },
+  "dependencies": {
+    "prompt": "0.1.x",
+    "wrench": "1.3.x",
+    "colors": "0.6.x",
+    "semver": "~1.1.x",
+    "grunt": "~0.3.x",
+    "grunt-modernizr": "~0.2.x",
+    "requirejs": "~2.1.5",
+    "statix": ">=2.0.0"
+  },
+  "license": "MIT",
+  "devDependencies": {},
+  "optionalDependencies": {},
+  "engines": {
+    "node": ">=0.9"
+  }
+}

@@ -1,0 +1,436 @@
+{% extends "base.html" %}
+
+{% block title %}Preparation{% endblock title %}
+
+{% block page_class %}preparation{% endblock page_class %}
+
+{% block transitional_id  %}preparation{% endblock transitional_id %}
+
+{% block content %}
+	<h1 class="title"><strong>/Prep/</strong></h1>
+	<p class="lead">Strategies and best practices to prepare yourself for <b>pushState</b> craziness.</p>
+
+	<div class="tutorial">
+		<p>
+			In this section we'll lay the foundation for a customizable and stable History API implementation.
+			In order to minimize intrusive "page-aware" JavaScript, we'll focus on providing a traditional web architecture with semantic URL design.
+			Next, we'll normalize the History API using History.js
+			And finally, we'll override the anchors in our document with the History API and see what happens.
+		</p>
+
+		<h3 id="#url-design">1. Click...pop: URL all the things!</h3>
+		<p>
+			First, we organize our site into semantic URLs that snap each page and page-state into existence on demand:
+<pre>
+&lt;a href="/overview/"&gt;Overview&lt;/a&gt;
+&lt;a href="/preparation/"&gt;Prep&lt;/a&gt;
+</pre>
+		</p>
+		<p>
+			Nothing new here, we're purposefully limiting URL-access to anchors in our HTML templates.
+			Try navigating to this <a href="/test-1.html">Test Page</a>... the full page-reload is abrupt but we're used to that on a page-level.
+		</p>
+
+		<p>
+			Now, try clicking and popping your way through the <a href="/preparation.html?poll=start">Star Wars Poll</a> overlay example.
+
+			<figure>
+				<a href="/preparation.html?poll=start"><img src="{{ STATIC_URL }}img/han-solo-poll.jpg" alt="Han Solo Poll"></a>
+				<figcaption class="muted">
+					Page-reloading feels disjointed and sudden, making it easy to lose focus.
+				 	Hang in there, we're almost ready to fix it!
+				</figcaption>
+			</figure>
+
+			It's really disorienting, but we're only concerned right now with providing semantic URLs for each page and state.
+		</p>
+
+		<p>
+			Our example site is entirely static (no server-side components).
+			In absence of server-side scripting our <a href="/preparation.html?poll=start">Star Wars Poll</a> requires JavaScript to render.
+<pre>
+switch (this.qs.poll) { //
+	case 'start':
+		$poll.removeClass("hidden");
+		$pollStart.removeClass("hidden");
+		$pollForm.on("submit", $.proxy(this.onSubmitPoll, this));
+		break;
+	case 'results':
+		$poll.removeClass("hidden");
+		$pollResults.removeClass("hidden");
+		break;
+	default:
+		break;
+}
+</pre>
+		</p>
+		<p>
+			We don't want a JavaScript dependence, how can maintain the "overlay" affect without JavaScript?
+			Web-development often requires managing trade-offs - so let's look at this common overlay example.
+		</p>
+
+		<p>
+			Ultimately, a JavaScript dependent state is not optimized for intial perceived load-time or SEO.
+			Meaning, the DOM needs to load everything before JavaScript can manually deliver the desired state.
+			Though your filesize is the same, your user percieves this wait as a slower load-time.
+		</p>
+		<p>
+			Let's be flexible and assume that one day we'll use a server-side script (such as Python or PHP) to optimize this request.
+			To prepare for that, we sacrifice the soft-load behaviour that a hash (#) provides for the flexibility that a querystring (?) provides.
+<pre>
+&lt;a href="/preparation.html?poll=start"&gt;Star Wars Poll Start &lt;/a&gt;
+&lt;a href="/preparation.html?poll=results"&gt;Star Wars Poll Results &lt;/a&gt;
+</pre>
+		</p>
+		<p>
+			Using a hash corners you into forever supporting this state with JavaScript.
+			In a moment we'll use <b>pushState</b> to gain back soft-load behaviour and later we can easily port the JavaScript <b>switch</b> to server-side script.
+		</p>
+		<aside class="well">
+			<h3>A URL is worth a thousand words</h3>
+			<p>
+				The URL is the first thing a user sees and our first opportunity to make a good impression.
+				URLs semantically describe incoming content and immediately offer the most basic form of interactivity (sharing or skipping to content).
+				There's a couple reasons why we prioritize traditional HTML architecture over wiring custom JavaScript-dependent states.
+			</p>
+			<p>
+				Traditional URL design supports a growing list of special interactions used to traverse a site.
+				Supporting gestures, hot-keys, back and forward buttons, bookmarking, and annotating is important if you want to edge closer to a "native" experience acorss a range of environments.
+			</p>
+			<p>
+				Semantic anchoring promotes SEO, visibility, sharability and maintainability.
+				Good URL design enables contextual snippet-sharing to social networks and promotes the surfacing of relevant and timely content.
+				HTML anchors provide a ubiquitous standard for understanding and maintaining your site architecture.
+				Creating JavaScript-dependent states can encumber your JavaScript frameworks as they grow less flexible and more difficult for others to learn.
+				<figure>
+					<img src="{{ STATIC_URL }}img/url-all-the-things.jpg" alt="URL all the things">
+					<figcaption>URL everything; it'll be easier to override with the History API later.</figcaption>
+				</figure>
+			</p>
+		</aside>
+
+		<aside id="poll" class="hidden">
+			<div class="container well">
+				<div class="alert alert-block">
+					<a href="/preparation.html" class="close" data-dismiss="alert" title="Close">&times;</a>
+					<h4>Who would make a good new Han Solo?</h4>
+				</div>
+				<div class="start hidden">
+					<form method="get" action="/preparation.html?poll=results">
+						<div class="answers well">
+							<label class="radio"><input type="radio" name="answer" value="1" id="78q8tanswer1"> Donald Glover</label>
+							<label class="radio"><input type="radio" name="answer" value="2" id="78q8tanswer2"> Taylor Kitsch</label>
+							<label class="radio"><input type="radio" name="answer" value="3" id="78q8tanswer3"> Nicolas Cage</label>
+						</div>
+						<button type="submit" name="poll" value="results" class="btn">Vote</button>
+					</form>
+				</div>
+				<div class="results hidden">
+					<h4>Poll Results</h4>
+					<dl class="dl-horizontal">
+						<dt>Donald Glover</dt>
+						<dd class="progress">
+							<div class="bar" style="width: 10%;"></div>
+						</dd>
+						<dt>Taylor Kitsch</dt>
+						<dd class="progress">
+							<div class="bar" style="width: 60%;"></div>
+						</dd>
+						<dt>Nicolas Cage</dt>
+						<dd class="progress">
+							<div class="bar" style="width: 80%;"></div>
+						</dd>
+					</dl>
+					<a href="/preparation.html?poll=start" name="poll" value="start" class="btn">Vote Again</a>
+				</div>
+			</div>
+		</aside>
+
+
+
+		<h3>2. Normalize the History API with History.js</h3>
+
+		<p>
+			The History API isn't available in legacy browsers and unfortunately its implementation varies across modern browsers.
+			Well, "there's a <a href="https://github.com/browserstate/history.js" target="_blank">polyfill for that</a>":
+<pre>
+&lt;script src="https://raw.github.com/browserstate/history.js/master/scripts/uncompressed/history.adapter.jquery.js"&gt;&lt;/script&gt;
+</pre>
+		</p>
+
+		<p>
+			The <a href="https://github.com/browserstate/history.js" target="_blank">History.js</a> library does quite a few things:
+			<ul>
+				<li>Normalizes the HTML5 History API across modern browesers</li>
+				<li>Provides an HTML4 polyfill for legacy browser support using the hash</li>
+				<li>Provides adapters for common frameworks (we're using the jQuery adapter)</li>
+			</ul>
+		</p>
+
+		<p>
+			The HMTL4 History.js polyfill is optional and not included by default. Whew!
+			All that harping on URL design leaves us in the perfect position to "progressivly enhance" our site with <b>pushState</b>;
+			meaning we're safe to disregard HTML4 <b>pushState</b> support.
+		</p>
+
+		<figure>
+			<img src="http://i179.photobucket.com/albums/w297/Zombie_61/Miscellaneous/Luke_Oops.jpg" alt="Luke Oops">
+			<figcaption class="muted">
+				Hashes and Hashbangs open you to host of issues documented in the <a href="https://github.com/browserstate/history.js/wiki/Intelligent-State-Handling">History.js wiki</a>.
+				Let's not use the HTML4 polyfill
+			</figcaption>
+		</figure>
+
+		<p>
+			We've included the HTML5 History.js normalizer in our template, so let's start listening for <b>pushState</b> events!
+			In the <b>addListeners</b> method, this line listens for state changes:
+<pre>
+// Note we use uppercase "History" object
+// Note "statechange" event instead of "popstate" event
+History.Adapter.bind(window, 'statechange', $.proxy(this.onStateChange, this));
+</pre>
+			Notice that History.js's syntax is different from the HTML5 spec for the History API.
+		</p>
+
+
+		<h3>3. Hijack the anchors</h3>
+
+		<p>
+			Instead of hijacking all the links on the site, I prefer to provide "opt-in" hijacking using a <b>data-history</b> attribute.
+			In the <b>addListeners</b> method, this line hijacks any element that has the <b>data-history</b> attribute.
+<pre>
+$(document).on("click", '[data-history="true"]', $.proxy(this.onClickHistory, this));
+</pre>
+			When you click on a <b>data-history</b> element, we override the default anchor behavior in the <b>onClickHistory</b> method.
+<pre>
+onClickHistory : function (e) {
+	var targ = $(e.currentTarget),
+		data = $.extend(targ.data(),
+			{
+				href : targ.attr("href"),
+				title : targ.attr("title")
+			});
+
+
+	History.pushState(data, data.title, data.href); // push the new URL up
+
+	e.preventDefault();
+	return false;
+},
+</pre>
+			<b>onClickHistory</b> merges the anchor's <b>href</b> and <b>title</b> into a <b>data</b> object, triggers a new <b>pushState</b> event, and cancels the original event to prevent a full-page refresh.
+		</p>
+
+<h3>4. Ajax in new content</h3>
+
+		<p>
+			Our semantic anchor tags have all the data we need to politely fetch the requested resources.
+			Let's test this out by navigating to our <a href="/test-1.html" title="Test Page" data-history="true">Test Page</a>.
+			You can even hit your brower's "back" button to come back with a <b>pushState</b> transition.
+<pre>
+&lt;a href="/test-1.html" data-history="true" title="Test Page"&gt;Test Page&lt;/a&gt;
+</pre>
+			<b>onStateChange</b> gets notified of the state change
+<pre>
+onStateChange : function (e) {
+	State = History.getState(); // Note: We are using History.getState() instead of event.state
+	// ...
+}
+</pre>
+			and attempts to load the requested URL using <b>ajax</b>.
+<pre>
+this.xhr = $.ajax({
+	url: State.url,
+	dataType: "html",
+	success: $.proxy(this.onLoadSuccess, this),
+	error : $.proxy(this.onLoadError, this)
+}); // fetch the URL
+</pre>
+		</p>
+
+		<p>
+			We haven't optimized our ajax requests for load-time performance.
+			Optimizing load-time performance requires some careful partial-file organization and/or server-side ajax-sniffing to conditionally load only changing content.
+			Currently, we're loading the request as is and praying that incoming content is formatted to our needs.
+<pre>
+var $content = $('[data-transitional="content"]'); // current page content
+</pre>
+			We anticipate incoming content to be identified by a <b>data-transitional</b> attribute.
+			This is our custom format for identifying blocks of data that are likely to change across URL requests.
+			Ideally we would only load the data we need, but until then, using a <b>data-transitional</b> marker will help keep your requests organized.
+		</p>
+
+		<h3>5. Transition new content in.</h3>
+		<p>
+
+			Next we'll use <b>pushState on a
+		</b>
+	</div>
+{% endblock content %}
+
+<!--
+	Here we'll discuss URL design, shebangs she moves,
+The History API is a license to do what you want with URLs, but we really have to earn the right to respex
+URLs are the fabric of the web, the importance of which I'm sure you're aware.
+
+The History API is a license to do what you want, like leaving your parents home - suddenly you have all this freedom
+		Section on NOT using the History API
+
+		1. Let's not pollyfill the history api, because of a lot of reasons
+		2. instead architect your site to work without the History API.
+		3. urls are an opportunity to design something meaningful and helpful,
+		4. and an opportunity to levearge a very well understood navigational paradigm
+			a. "who needs directions if you can skip to the destination" "urls are like transporters"
+			b. urls and titles help search engines and users develop an understanding of content organization and hierarchy
+			c. modularity - if you can access urls they become independent of one another, reduce the number of requirements or responsibilities the page needs to fulfill before reaching an intended state
+
+		Now that you've NOT used the History API, let's use it.
+		Extend or enhance the experience of traversing our well designed map of URLs. If a browser doesn't support it, that's fine.
+
+		Browsers are converging their support for features, like border-radius, where you don't need browser prefixes.
+
+		The History API has some documented implementation variances across browsers, so we'll use History.js to normalize pushState support.
+
+		History.js provides adapters for common frameworks such as jQuery and Mootools. We'll use the jQuery adapater.
+
+		1. History JS / History JS jQuery adapter
+
+		2. Hijack links
+
+		3. The whole shebang
+
+		3. Let's transition full pages
+
+		4. Let's optimize those page loads
+
+		5. Let's use URL's to indicate custom user-states (pagination)
+
+		6.
+
+
+		<p><b>pushState</b> surfaces the importance of URL semantics and content representation as it requires us to manually discern and respond to URL requests.
+
+
+
+			This tutorial covers a few common page-states, but these are unique to your project and require critical thinking
+			We
+
+
+
+
+			Ultimately, successful URL design will make our History API implementation a breeze by making not require!
+
+			back, forward, hot-key, mouse gestures all affect
+			It's important to understand that <b>pushState</b> allows us to change the URL, but doesn't require us to do anything else.
+			URLs are an agreement - we
+
+			URLs are very important, so before we override the browser's location-bar, we should architect our site to properly render with all the URLs we plan on providing.
+
+			It's important to understand that <b>pushState</b> allows us to change the URL but requires us to manually discern and deliver the representation of that URL
+
+			Before applying <b>pushState</b> we need to organize our content to be accessible by unique URLs -  this becomes increasingly important when we optimize load-times later.
+<p>For our example site, you can turn off JavaScript and all the links remain clickable and URLs indexable. This is important
+
+	<aside><p>Search engines and social networks rely on URLs to find, organize, and contextualize the internet. Semantic URLs surface your content better and promote relevant sharing!<p></aside>
+
+	The History API
+			, we can fulfill the SEO and usability benefits of traditional hyperlinking while conditionally providing real performance savings and a seemless experience.
+			First, we want to identify and define all the distinct pages and states that make up our entire website... without <b>pushState</b>!
+
+			<p>
+				In the past, to bypass the eye-sore of an unnecessary page refresh we used hashes <i>(#)</i> to deep-link to a particuar state.
+			</p>
+
+			<p>
+				Our example site is entirely static (no server-side components), so certain states require JavaScript to render.
+				Even so, we're not representing these states with a hash (#) because we may decide later to render the intended state on the server.
+				This flexibility allows us to move rendering to the server in order to:
+				<ul>
+					<li>Optimize "load time perception" (JavaScript waits until the document loads which is the same K size but a longer wait!)</li>
+					<li>Optimize search engine indexing</li>
+					<li>Reduce development bottlenecks (Easier to edit a template vs editing a template and custom JavaScript)</li>
+				</ul>
+			</p>
+
+
+			<p>
+			The traditional improves SEO, browser-reach and increases our flexiblility for future changes in the content code-base.
+			Then, we can extend our experience with the History API  JavaScript on seemless transitions, custom animations, and optimizing percieved load-time!
+
+			We'll cover <a href="#url-design">URL design</a>, normalizing the History API, and funneling <b>pushState</b> requests and responses through a single entry/exit point.
+		</p>
+
+		<p>
+
+			While this is totally normal for page requests, we'll also doing the same for various page-states:
+<pre>
+&lt;a href="/preparation/?poll=start"&gt;History Poll Start &lt;/a&gt;
+&lt;a href="/preparation/?poll=results"&gt;History Poll Results &lt;/a&gt;
+</pre>
+		</p>
+
+		<p>
+			Try it out on the <a href="/preparation/?poll=start">Poll overlay example</a>.
+			Clicking and popping our way through a site feels abbrasive, but hyperlinking <i>everything</i> with semantic URLs creates a flexbile foundation for later.
+		</p>
+		<p>Let's look at this <a href="/preparation/?poll=start">Poll overlay example</a>.
+<pre>
+
+&lt;a href="/preparation/?poll=start"&gt;History Poll &lt;/a&gt;
+
+// JavaScript
+if (this.qs.poll === "start") {
+	this.showPoll();
+}
+</pre>
+
+		We're changing this page-state to display a poll, but reloading the whole page to do it.
+		SEO is happy, people clicking the link from Twitter are happy, but my eyes... my eyes!
+		Refreshing the whole page sucks!
+		</p>
+
+		<figure>
+			<img src="{{ STATIC_URL }}img/url-all-the-things.jpg" alt="URL all the things">
+			<figcaption>Page-refreshes feel disjointed and sudden - you lose focus momentarily - but we'll fix it!</figcaption>
+		</figure>
+
+We're also minimizing custom JavaScript state-behaviour by providing a network of anchors that represent our pages and page-states.
+
+<figure>
+				<a href="/preparation/?poll=start"><img src="{{ STATIC_URL }}img/han-solo-poll.jpg" alt="Han Solo Poll"></a>
+				<figcaption class="muted">
+					Page-reloading feels disjointed and sudden, making it easy to lose focus.
+				 	Hang in there, we're almost ready to fix it!
+				</figcaption>
+			</figure>
+
+			<p>
+			Let's look at that <a href="/preparation/?poll=start" data-history="true" title="Start Wars Poll">Star Wars Poll</a> again to break this down.
+<pre>
+&lt;a href="/preparation/?poll=start" data-history="true" title="Star Wars Poll"&gt;Star Wars Poll&lt;/a&gt;
+</pre>
+			Click <a href="/preparation/?poll=start" data-history="true" title="Start Wars Poll">the poll</a>.
+			Odd, the location-bar changes, the page fades out and back in, but the poll never appears!
+		</p>
+		<p>
+			<b>onStateChange</b> gets notified when the state changes using the History API.
+<pre>
+onStateChange : function (e) {
+	State = History.getState(); // Note: We are using History.getState() instead of event.state
+	console.log(State.data);
+}
+</pre>
+			and simply logging State data that's passed through.
+<pre>
+{
+	history: true,
+	href: "/preparation/?poll=start",
+	title: "Start Wars Poll"
+}
+</pre>
+		</p>
+
+		<p>
+			Continue to the <a href="/transitions/" data-history="alt">Transitions</a> page with style...
+		</p>
+-->

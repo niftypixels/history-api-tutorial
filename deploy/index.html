@@ -1,0 +1,108 @@
+<html>
+	<head>
+		<title>Overview</title>
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="shortcut icon" href="http://media.netmagazine.futurecdn.net/sites/all/themes/netmag/favicon.ico" type="image/x-icon" />
+	</head>
+	<body>
+		<div id="container">
+			<header>
+				<div class="banner">
+					<a href="http://www.netmagazine.com/" class="logo">
+						<img src="http://media.netmagazine.futurecdn.net/sites/all/themes/netmag/logo.png" alt="Netmagazine logo" />
+						<small class="muted">Tutorial</small>
+					</a>
+					<h2 class="muted">Extending your brand beyond the URL</h2>
+				</div>
+			</header>
+
+			<div id="main" class="container-fluid">
+				<div class="row-fluid">
+					<nav role="main" class="span3">
+						<ol class="nav nav-list">
+							<li><a href="/">Overview</a></li>
+							<li><a href="/preparation.html">Prep</a></li>
+							<li><a href="/transitions.html" data-history="true">Transitions</a></li>
+							<li><a href="/resources.html" data-history="true">Resources</a></li>
+						</ol>
+					</nav>
+
+					<div class="span9 overview" data-transitional="content" data-transitional-id="default">
+						
+
+	<h1 class="title"><strong>/JavaScript/</strong>HTML5 History API Preparedness</h1>
+	<p class="lead">Front-end developer <i>Christian Shum-Harden</i> of <a href="http://ff0000.com">RED Interactive Agency</a> demonstrates some best practices of HTML5 History API preparedness.</p>
+
+	<div class="tutorial">
+		<table class="requirements table table-striped table-condensed">
+			<thead></thead>
+			<tbody>
+				<tr>
+					<td>Knowledge Needed</td>
+					<td>HTML, JavaScript</td>
+				</tr>
+				<tr>
+					<td>Requires</td>
+					<td>Text editor, modern web browser</td>
+				</tr>
+				<tr>
+					<td>Project Time</td>
+					<td>1 hour</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<p>
+			<strong>The HTML5 History API is a small collection of methods and events that enable us to manipulate the browser location and <b>history</b> without triggering a page refresh.</strong>
+		</p>
+
+		<p>
+			The History API is actually really small; at its core <b>pushState</b> triggers and <b>popstate</b> listens for location-change events:
+<pre>
+window.addEventListener("popstate", function(e) { // list for the change
+	// location has changed
+});
+
+history.pushState({ foo: "bar"}, "Some Title", "/some/url"); // request a location change
+</pre>
+			Notice the <i>location has changed</i> comment?
+			This is precisely where the History API becomes an incredibly broad, sink-or-swim topic.
+			We've just entered a contract where we are responsible for manually rendering a URL request.
+		</p>
+
+<pre>
+window.addEventListener("popstate", function(e) { // list for the change
+	// location has changed
+});
+
+history.pushState({ foo: "bar"}, "Some Title", "/some/url"); // request a location change
+</pre>
+
+		<p>
+			This tutorial focuses on <b>pushState</b> preparedness and best practices in order to lay a foundation for a successful and flexible <b>pushState</b> solution.
+		</p>
+		<p>
+			If you're looking for a quick <b>pushState</b> solution, then you can <a href="https://github.com/browserstate/ajaxify/blob/master/ajaxify-html5.js">"ajaxify your entire website instantly"</a> here.
+		</p>
+		<p>
+			For the patient though, let's dive into some architectural strategies and preparations that make the History API a lot more fun and flexible to leverage.
+		</p>
+	</div>
+
+
+					</div>
+				</div>
+			</div>
+			<footer>
+
+			</footer>
+			<script src="js/libs/jquery.js"></script>
+			<script src="js/libs/jquery.history.js"></script>
+			<script src="js/libs/jquery.transit.js"></script>
+
+			
+			<script src="js/prep.js"></script>
+			
+		</div>
+	</body>
+</html>

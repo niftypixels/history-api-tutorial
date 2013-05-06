@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block title %}Overview{% endblock title %}
+
+{% block page_class %}overview{% endblock page_class %}
+
+{% block content %}
+
+	<h1 class="title"><strong>/JavaScript/</strong>HTML5 History API Preparedness</h1>
+	<p class="lead">Front-end developer <i>Christian Shum-Harden</i> of <a href="http://ff0000.com">RED Interactive Agency</a> demonstrates some best practices of HTML5 History API preparedness.</p>
+
+	<div class="tutorial">
+		<table class="requirements table table-striped table-condensed">
+			<thead></thead>
+			<tbody>
+				<tr>
+					<td>Knowledge Needed</td>
+					<td>HTML, JavaScript</td>
+				</tr>
+				<tr>
+					<td>Requires</td>
+					<td>Text editor, modern web browser</td>
+				</tr>
+				<tr>
+					<td>Project Time</td>
+					<td>1 hour</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<p>
+			<strong>The HTML5 History API is a small collection of methods and events that enable us to manipulate the browser location and <b>history</b> without triggering a page refresh.</strong>
+		</p>
+
+		<p>
+			The History API is actually really small; at its core <b>pushState</b> triggers and <b>popstate</b> listens for location-change events:
+<pre>
+window.addEventListener("popstate", function(e) { // list for the change
+	// location has changed
+});
+
+history.pushState({ foo: "bar"}, "Some Title", "/some/url"); // request a location change
+</pre>
+			Notice the <i>location has changed</i> comment?
+			This is precisely where the History API becomes an incredibly broad, sink-or-swim topic.
+			We've just entered a contract where we are responsible for manually rendering a URL request.
+		</p>
+
+<pre>
+window.addEventListener("popstate", function(e) { // list for the change
+	// location has changed
+});
+
+history.pushState({ foo: "bar"}, "Some Title", "/some/url"); // request a location change
+</pre>
+
+		<p>
+			This tutorial focuses on <b>pushState</b> preparedness and best practices in order to lay a foundation for a successful and flexible <b>pushState</b> solution.
+		</p>
+		<p>
+			If you're looking for a quick <b>pushState</b> solution, then you can <a href="https://github.com/browserstate/ajaxify/blob/master/ajaxify-html5.js">"ajaxify your entire website instantly"</a> here.
+		</p>
+		<p>
+			For the patient though, let's dive into some architectural strategies and preparations that make the History API a lot more fun and flexible to leverage.
+		</p>
+	</div>
+
+{% endblock content %}
+
+<!-- NOTES
+This allows us to manage the webpage state at a very custom level by only updating relevant parts of the page and leaving others unaffected.
+The History API gives us the power to create a more stable, polished, and optimized experience through customization of
+This presents an interesting opportunity for us to control the webpage user-state experience at a very custom level.
+Instead of breaking the page-experience by clearing and loading a new page, we can update and even transition to new states
+ on smaller portions of the page - leaving unchanged states
+Instead of refreshing, we have the opportunity to do something different and unique between page states - but eventually, .
+This tutorial is about life after <b>pushState</b>; how to prepare for and manage <b>pushState</b> requests to take advantage of manually controlling page-state in your projects.
+
+<p>Yay, now you know how to use the History API!  Work complete... Except one pretty major thing: the URL changed but nothing changed on the page.
+			As intended, the History API overrides the browser's default handling of a URL request, leaving you in charge of manually updating the page to represent the request.
+			Using the History API, this tutorial focuses on managing webpage-state at a custom level to take advanted of:
+			<ul>
+				<li>extending the creative vision between stateds</li>
+				<li>customizable perception / experience of state-change</li>
+				<li>optimized load-times</li>
+				<li>shareable </li>
+			</ul>
+		</p>
+//-->
