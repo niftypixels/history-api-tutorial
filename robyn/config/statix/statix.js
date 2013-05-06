@@ -34,7 +34,7 @@ module.exports = {
 
 	source_dir : "project", // `source_dir` is the directory where all your source files are.
 	output_dir: "deploy", // `output_dir` is the directory you want to compile your static site to.
-	gh_pages_dir : "../../../gh-pages",
+	gh_pages_dir : "gh-pages",
 
 	template_engine : "swig", // the npm package name of the template engine, only engines supported by consolidate.js will work
 	template_dir : "project/templates", // Only relevant if using swig : The directory where all your templates are.
