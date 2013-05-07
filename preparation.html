@@ -32,12 +32,14 @@
 	<h1 class="title"><strong>/Prep/</strong></h1>
 	<p class="lead">Strategies and best practices to prepare yourself for <b>pushState</b> craziness.</p>
 
+	<!--
+	Strategies for adding the History API to your site
+	-->
+
 	<div class="tutorial">
 		<p>
 			In this section we'll lay the foundation for a customizable and stable History API implementation.
 			In order to minimize intrusive "page-aware" JavaScript, we'll focus on providing a traditional web architecture with semantic URL design.
-			Next, we'll normalize the History API using History.js
-			And finally, we'll override the anchors in our document with the History API and see what happens.
 		</p>
 
 		<h3 id="#url-design">1. Click...pop: URL all the things!</h3>
@@ -273,7 +275,7 @@ this.xhr = $.ajax({
 		<p>
 			We haven't optimized our ajax requests for load-time performance.
 			Optimizing load-time performance requires some careful partial-file organization and/or server-side ajax-sniffing to conditionally load only changing content.
-			Currently, we're loading the request as is and praying that incoming content is formatted to our needs.
+			Currently, we're loading the request as is and hoping that incoming content is formatted to our needs.
 <pre>
 var $content = $('[data-transitional="content"]'); // current page content
 </pre>
@@ -285,7 +287,7 @@ var $content = $('[data-transitional="content"]'); // current page content
 		<h3>5. Transition new content in.</h3>
 		<p>
 
-			Next we'll use <b>pushState on a
+			//// need to finish this section
 		</b>
 	</div>
 

@@ -43,7 +43,7 @@
 				</tr>
 				<tr>
 					<td>Requires</td>
-					<td>Text editor, modern web browser</td>
+					<td>Text editor, modern web browser, local webserver</td>
 				</tr>
 				<tr>
 					<td>Project Time</td>
@@ -70,28 +70,46 @@ history.pushState({ foo: "bar"}, "Example Title", "/change/the/location"); // re
 		</p>
 		<p>
 			URLs are the fabric of the internet so we'll want to think critically about our approach and goals for overriding years of browser experience and care.
-			This tutorial aims to provide a foundation of knoweldge and thoughtfulness around the History API by:
+			This tutorial aims to provide a foundation of knowledge and thoughtfulness around the History API by:
 			<ul>
 				<li>Studying URL design and the affectiveness of a traditional web architecure with and without the History API</li>
-				<li>Using the History API to develop a flexible but reliable site framework that promotes iterative improvements to load-time perceptions and seemless page transitions.</li>
-				<li>Approaching pushState use from an adaptive perspective that balances the tradeoffs of missing or varying History API implementations.</li>
+				<li>Using the History API to develop a flexible but reliable site framework that promotes the iterative improvement of load-time, enhanced interactivity, and elegant page transitions.</li>
+				<li>Approaching pushState from an adaptive perspective that balances the tradeoffs of missing or varying browser History API implementations.</li>
 			</ul>
 		</p>
 		<p>
-			If you'd prefer a TL;DR; approach to <b>pushState</b>, then have a look at the ajaxify-html5 script that <a href="https://github.com/browserstate/ajaxify/blob/master/ajaxify-html5.js">"ajaxifies your entire website instantly"</a>.
+			If you'd prefer to slam your way through <b>pushState</b>, then have a look at the <a href="https://github.com/browserstate/ajaxify/blob/master/ajaxify-html5.js">ajaxify-html5.js</a> script that "ajaxifies your entire website instantly".
 			It "hijacks" all your site URLs and cross-fades between page requests.
 			<figure>
 				<img src="static/img/didnt-read.jpg" alt="LOL Didn't read">
 				<figcaption class="muted">
 					The ajaxify-html5.js script is actually a great crash course in brute-forcing the History API into your site.
-					The script showcases some valuable solutions for parsing titles, CSS, and JavaScript resources from incoming pages.
+					The script showcases some valuable solutions for parsing and loading titles, CSS, and JavaScript resources from incoming pages.
 				</figcaption>
 			</figure>
 		</p>
+
 		<p>
-			Otherwise, let's ease into this <b>pushState</b> thing by first discussing
-			We'll focus on laying the foundation for a flexible and maintainable History API solution.
+			Since you're still here, let's get started!
+			You can download the example site at <a href="https://github.com/potench/history-api-tutorial/archive/gh-pages.zip">http://bit.ly/107wM2S</a> unzip it and serve it on your local webserver.
+			Our example site is acutally this tutorial in an HTML stack.
+			You can follow the tutorial AND view the source code that we're discussing in once place!
+			<figure>
+				<img src="static/img/unzip.jpg" alt="Example folder structure">
+				<figcaption class="muted">
+					Our static website example uses Twitter's bootstrap, jQuery, jQuery transit, and history.js.
+				</figcaption>
+			</figure>
 		</p>
+
+		<aside class="well">
+			<p>
+				You might notice that the root of our <a href="https://github.com/potench/history-api-tutorial/">example site GitHub repo</a> is using a Node based static website generator called <a href="http://github.com/ff0000/statix">Statix</a>.
+				This tutorial prioritizes flexibility and encourages creating opportunities for later iterative improvement.
+				While we won't be using the Statix code at all in this tutorial, it's worth mentioning that we can later replace Statix with a Django/python CMS implementation without much impact on our example site!
+				Remember this when we're prioritizing flexibile solutions that favor server-side optimization later in the tutorial.
+			</p>
+		</aside>
 	</div>
 
 
