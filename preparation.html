@@ -52,7 +52,7 @@
 		</p>
 		<p>
 			Nothing new here, we're purposefully limiting URL-access to anchors in our HTML templates.
-			Try navigating to this <a href="/test-1.html">Test Page</a>... the full page-reload is abrupt but we're used to that on a page-level.
+			Try navigating to this <a href="test-1.html">Test Page</a>... the full page-reload is abrupt but we're used to that on a page-level.
 		</p>
 
 		<p>
@@ -249,10 +249,10 @@ onClickHistory : function (e) {
 
 		<p>
 			Our semantic anchor tags have all the data we need to politely fetch the requested resources.
-			Let's test this out by navigating to our <a href="/test-1.html" title="Test Page" data-history="true">Test Page</a>.
+			Let's test this out by navigating to our <a href="test-1.html" title="Test Page" data-history="true">Test Page</a>.
 			You can even hit your brower's "back" button to come back with a <b>pushState</b> transition.
 <pre>
-&lt;a href="/test-1.html" data-history="true" title="Test Page"&gt;Test Page&lt;/a&gt;
+&lt;a href="test-1.html" data-history="true" title="Test Page"&gt;Test Page&lt;/a&gt;
 </pre>
 			<b>onStateChange</b> gets notified of the state change
 <pre>
