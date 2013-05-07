@@ -12,7 +12,7 @@
 						<img src="http://media.netmagazine.futurecdn.net/sites/all/themes/netmag/logo.png" alt="Netmagazine logo" />
 						<small class="muted">Tutorial</small>
 					</a>
-					<h2 class="muted">Extending your brand beyond the URL</h2>
+					<h2 class="muted">A Foundation for Successful History management</h2>
 				</div>
 			</header>
 
@@ -32,38 +32,68 @@
 	<h1 class="title"><strong>/Resources/</strong></h1>
 	<p class="lead">More reading on the History API, state management, and URL design</p>
 
-	<div class="tutorial">
-		<h3>HTML5 History API Resources</h3>
-		<p>
-			<ul>
-				<li><a href="http://diveintohtml5.info/history.html" target="_blank">Manipulating History for Fun & Profit</a> - Dive into HTML5 intoduction to the history API</li>
-				<li><a href="https://github.com/browserstate/history.js" target="_blank">History.js library</a> - Normalizes browser History API inconsistencies and provides links to demos and more resources on the History API.</li>
-				<li><a href="https://github.com/browserstate/history.js/wiki/Intelligent-State-Handling" target="_blank">Intelligent State Handling</a> - Benjamin Lupton's History.js wiki entry on hashbangs, hashes, pushState and popState.</li>
-				<li><a href="http://engineering.twitter.com/2012/12/implementing-pushstate-for-twittercom_7.html" target="_blank">Implementing pushState for Twitter.com</a> - Engineering blog on Twitter's progressive enhancement implementation of pushState.</li>
-			</ul>
-		</p>
+	<aside class="well">
+		<div class="tutorial">
+			<h3>HTML5 History API Resources</h3>
+			<p>
+				<ul>
+					<li><a href="http://diveintohtml5.info/history.html" target="_blank">Manipulating History for Fun & Profit</a> - Diving in to the History API</li>
+					<li><a href="https://github.com/browserstate/history.js" target="_blank">History.js library</a> - Normalizes browser History API inconsistencies and provides links to demos and more resources on the History API.</li>
+					<li><a href="https://github.com/browserstate/history.js/wiki/Intelligent-State-Handling" target="_blank">Intelligent State Handling</a> - Benjamin Lupton's History.js wiki entry on hashbangs, hashes, pushState and popState.</li>
+					<li><a href="http://engineering.twitter.com/2012/12/implementing-pushstate-for-twittercom_7.html" target="_blank">Implementing pushState for Twitter.com</a> - Engineering blog on Twitter's progressive enhancement implementation of pushState.</li>
+				</ul>
+			</p>
 
-		<h3>Inspiration</h3>
-		<p>
-			GitHub uses <a href="https://github.com/defunkt/jquery-pjax/tree/heroku" target="_blank">jquery-pjax</a> and the History API to traverse a code repository tree.
-			Clicking on folders or files transitions content from left to right when drilling down, and right to left when surfacing back up the project tree.
-			This elegant addition reinforces the concept of heiarchy and organization, and provides visual queues that direct our attention to priorty content.
-			<figure>
-				<img src="static/img/github-screen-shot.jpg" alt="Github project tree">
-				<figcaption class="muted">
-					GitHub project progressively enhanced the project-tree by combining CSS transitions and pushState.
-					GitHub falls back to standard page-refreshes on legacy browsers.
-				</figcaption>
-			</figure>
+			<h3>Inspiration</h3>
+			<p>
+				GitHub uses <a href="https://github.com/defunkt/jquery-pjax/tree/heroku" target="_blank">jquery-pjax</a> and the History API to traverse a code repository tree.
+				Clicking on folders or files transitions content from left to right when drilling down, and right to left when surfacing back up the project tree.
+				This elegant addition reinforces the concept of heiarchy and organization, and provides visual queues that direct our attention to priorty content.
+				<figure>
+					<img src="static/img/github-screen-shot.jpg" alt="Github project tree">
+					<figcaption class="muted">
+						The Tree Slider: GitHub reinforces conrtent organization and hierarchy with CSS transitions and pushState.
+					</figcaption>
+				</figure>
 
-			Here are a couple valuable resources where GitHub's Kyle Neath discusses the History API and the importance of URL design:
+				GitHub's Kyle Neath discusses the History API and the importance of URL design:
 
-			<ul>
-				<li><a href="http://warpspire.com/talks/responsive/" target="_blank">Responsive web design from the future</a> - Kyle Neath's slides on pushState, replaceState, and hashbangs!#.</li>
-				<li><a href="http://warpspire.com/experiments/history-api/?max_id=331414989858557952" target="_blank">Infinite Scroll + HTML5 History API</a> - example using the History API to maintain current state while using an infinite scroll component.</li>
-			</ul>
-		</p>
-	</div>
+				<ul>
+					<li><a href="http://warpspire.com/talks/responsive/" target="_blank">Responsive web design from the future</a> - Kyle Neath's slides on pushState, replaceState, and hashbangs!#.</li>
+					<li><a href="http://warpspire.com/experiments/history-api/?max_id=331414989858557952" target="_blank">Infinite Scroll + HTML5 History API</a> - example using the History API to maintain current state while using an infinite scroll component.</li>
+					<li><a href="https://github.com/blog/760-the-tree-slider" target="_blank">The Tree Slider</a> - GitHub's History API implementation.</li>
+				</ul>
+			</p>
+
+			<h3>What's Next?</h3>
+			<p>
+				Our tutorial only scratched the surface of state management using the History API.
+				Next time we can dive a little deeper into some advanced topics:
+			</p>
+
+			<h5>1. Conditionally load partial files in Django with AJAX</h5>
+			<p>
+<pre>
+if request.is_ajax():
+    template = base_ajax
+else:
+    template = base_html
+</pre>
+				This adaptive sever-side approach strategically delivers a single template in various forms depending on how it's requested.
+				We can load a partial file that contains only relevant data by requesting URL with AJAX.
+			</p>
+
+			<h5>2. Using Require.js and the Rosy.js framework to manage persistence, routing, transitions, and garbage collection across a complex site.</h5>
+			<p>
+				<figure>
+					<img src="static/img/rosy.jpg" alt="Rosy">
+					<figcaption class="muted">
+						Rosy's client-side routing implementation makes it easy to implement the History API and transitions into a website.
+					</figcaption>
+				</figure>
+			</p>
+		</div>
+	</aside>
 
 					</div>
 				</div>

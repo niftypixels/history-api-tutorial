@@ -187,6 +187,11 @@ table.requirements {
 	border:2px solid #eee;
 }
 
+.tutorial figure img {
+	margin: auto;
+	display: block;
+}
+
 .tutorial figure figcaption {
 	padding: 5px;
 	font-size: 1em;
@@ -232,7 +237,7 @@ table.requirements {
 --------------------------------------------- */
 
 .overview .tutorial {
-	min-height: 500px;
+
 }
 
 
