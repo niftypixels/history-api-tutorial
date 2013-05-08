@@ -4,8 +4,9 @@ var build = {
 		TEMPLATE_DEBUG : false
 	},
 
-	STATIC_URL : "static/",
-	SOURCE_URL : "source/"
+	ROOT_URL : "/history-api-tutorial/",
+	STATIC_URL : "/history-api-tutorial/static/",
+	SOURCE_URL : "/history-api-tutorial/source/"
 };
 
 module.exports = build;

@@ -1,10 +1,34 @@
-{% extends "base.html" %}
+<html>
+	<head>
+		<title>Resources</title>
+		<link rel="stylesheet" href="/history-api-tutorial/static/css/style.css" />
+		<link rel="shortcut icon" href="http://media.netmagazine.futurecdn.net/sites/all/themes/netmag/favicon.ico" type="image/x-icon" />
+	</head>
+	<body>
+		<div id="container">
+			<header>
+				<div class="banner">
+					<a href="http://www.netmagazine.com/" class="logo">
+						<img src="http://media.netmagazine.futurecdn.net/sites/all/themes/netmag/logo.png" alt="Netmagazine logo" />
+						<small class="muted">Tutorial</small>
+					</a>
+					<h2 class="muted">A Foundation for Successful History management</h2>
+				</div>
+			</header>
 
-{% block title %}Resources{% endblock title %}
+			<div id="main" class="container-fluid">
+				<div class="row-fluid">
+					<nav role="main" class="span3">
+						<ol class="nav nav-list">
+							<li><a href="/history-api-tutorial/">Overview</a></li>
+							<li><a href="/history-api-tutorial/preparation/">Prep</a></li>
+							<li><a href="/history-api-tutorial/transitions/" data-history="true">Transitions</a></li>
+							<li><a href="/history-api-tutorial/resources/" data-history="true">Resources</a></li>
+						</ol>
+					</nav>
 
-{% block page_class %}resources{% endblock page_class %}
-
-{% block content %}
+					<div class="span9 resources" data-transitional="content" data-transitional-id="default">
+						
 	<h1 class="title"><strong>/Resources/</strong></h1>
 	<p class="lead">More reading on the History API, state management, and URL design</p>
 
@@ -20,7 +44,7 @@
 				This simple animation reinforces the concept of hierarchy and position; navigating a directory becomes subtly easier.
 				It also provides a nice visual break and attention stimulant between the complex, text-heavy, rigid folder contents.
 				<figure>
-					<img src="{{ STATIC_URL }}img/tree-slider.jpg" alt="Tree-Slider">
+					<img src="/history-api-tutorial/static/img/tree-slider.jpg" alt="Tree-Slider">
 					<figcaption class="muted">
 						On pushState enabled browers, GitHub's Tree-Slider optimizes load-times and animates between directories based on your path through the directory tree.
 					</figcaption>
@@ -72,7 +96,7 @@ else:
 			<h5>2. Using Require.js and the Rosy.js framework to manage persistence, routing, transitions, and garbage collection across a complex site.</h5>
 			<p>
 				<figure>
-					<img src="{{ STATIC_URL }}img/rosy.jpg" alt="Rosy">
+					<img src="/history-api-tutorial/static/img/rosy.jpg" alt="Rosy">
 					<figcaption class="muted">
 						Rosy features a Route manager that maps JavaScript view objects to URLs and a Transition manager that makes customizing transitions between pushStates much easier.
 					</figcaption>
@@ -80,4 +104,20 @@ else:
 			</p>
 		</div>
 	</aside>
-{% endblock content %}
+
+					</div>
+				</div>
+			</div>
+			<footer>
+
+			</footer>
+			<script src="/history-api-tutorial/static/js/libs/jquery.js"></script>
+			<script src="/history-api-tutorial/static/js/libs/jquery.history.js"></script>
+			<script src="/history-api-tutorial/static/js/libs/jquery.transit.js"></script>
+
+			
+			<script src="/history-api-tutorial/static/js/prep.js"></script>
+			
+		</div>
+	</body>
+</html>

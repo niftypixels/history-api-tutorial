@@ -1,34 +1,10 @@
-<html>
-	<head>
-		<title>Overview</title>
-		<link rel="stylesheet" href="/history-api-tutorial/static/css/style.css" />
-		<link rel="shortcut icon" href="http://media.netmagazine.futurecdn.net/sites/all/themes/netmag/favicon.ico" type="image/x-icon" />
-	</head>
-	<body>
-		<div id="container">
-			<header>
-				<div class="banner">
-					<a href="http://www.netmagazine.com/" class="logo">
-						<img src="http://media.netmagazine.futurecdn.net/sites/all/themes/netmag/logo.png" alt="Netmagazine logo" />
-						<small class="muted">Tutorial</small>
-					</a>
-					<h2 class="muted">A Foundation for Successful History management</h2>
-				</div>
-			</header>
+{% extends "base.html" %}
 
-			<div id="main" class="container-fluid">
-				<div class="row-fluid">
-					<nav role="main" class="span3">
-						<ol class="nav nav-list">
-							<li><a href="/history-api-tutorial/">Overview</a></li>
-							<li><a href="/history-api-tutorial/preparation/">Prep</a></li>
-							<li><a href="/history-api-tutorial/transitions/" data-history="true">Transitions</a></li>
-							<li><a href="/history-api-tutorial/resources/" data-history="true">Resources</a></li>
-						</ol>
-					</nav>
+{% block title %}Overview{% endblock title %}
 
-					<div class="span9 overview" data-transitional="content" data-transitional-id="default">
-						
+{% block page_class %}overview{% endblock page_class %}
+
+{% block content %}
 
 	<h1 class="title"><strong>/Overview/</strong>HTML5 History API</h1>
 	<p class="lead">Front-end developer <i>Christian Shum-Harden</i> of <a href="http://ff0000.com">RED Interactive Agency</a> demonstrates some best practices and strategies when preparing to use the  HTML5 History API.</p>
@@ -108,7 +84,7 @@ history.pushState({ foo: "bar"}, "Example Title", "/i/just/changed/the/location"
 			Ajaxify "hijacks" your site's anchors with <b>pushState</b> in order to ajax-load and cross-fade between page requests.
 			It showcases some valuable solutions for parsing document titles, handling incoming CSS and JavaScript resources, and selecting other tricky markup blocks.
 			<figure>
-				<img src="/history-api-tutorial/static/img/didnt-read.jpg" alt="LOL Didn't read">
+				<img src="{{ STATIC_URL }}img/didnt-read.jpg" alt="LOL Didn't read">
 				<figcaption class="muted">
 					The Ajaxify script is actually a great crash course in brute-forcing the History API into your site.  Milage may vary.
 				</figcaption>
@@ -121,7 +97,7 @@ history.pushState({ foo: "bar"}, "Example Title", "/i/just/changed/the/location"
 			Our example site is acutally this tutorial in an HTML stack.
 			You can follow the tutorial AND view the source code that we're discussing in once place!
 			<figure>
-				<img src="/history-api-tutorial/static/img/unzip.jpg" alt="Example folder structure">
+				<img src="{{ STATIC_URL }}img/unzip.jpg" alt="Example folder structure">
 				<figcaption class="muted">
 					Our static website example uses Twitter's bootstrap, jQuery, jQuery transit, and history.js.
 				</figcaption>
@@ -138,20 +114,20 @@ history.pushState({ foo: "bar"}, "Example Title", "/i/just/changed/the/location"
 		</aside>
 	</div>
 
+{% endblock content %}
 
-					</div>
-				</div>
-			</div>
-			<footer>
 
-			</footer>
-			<script src="/history-api-tutorial/static/js/libs/jquery.js"></script>
-			<script src="/history-api-tutorial/static/js/libs/jquery.history.js"></script>
-			<script src="/history-api-tutorial/static/js/libs/jquery.transit.js"></script>
 
-			
-			<script src="/history-api-tutorial/static/js/prep.js"></script>
-			
-		</div>
-	</body>
-</html>
+<p>
+			Let's take a quick look at these methods before
+			To change the browser location, run the following code in your browser's JavaScript console:
+			Mozilla's <a href="https://developer.mozilla.org/en-US/docs/DOM/window.history" target="_blank">window.history</a> reference is the most complete and conclussive developer documentation on the HTML5 History API.
+<pre>
+history.pushState(
+	{ foo: "bar"},  // a data object that becomes window.state.data
+	"Example Title",
+	"/i/just/changed/the/location"
+);
+</pre>
+
+		</p>

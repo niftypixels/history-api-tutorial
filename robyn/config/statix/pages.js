@@ -2,24 +2,24 @@ var pages = [
 
 	{
 		output : "index.html",
-		source : "templates/pages/home.html",
+		source : "templates/pages/overview.html",
 		data : {}
 	},
 
 	{
-		output : "preparation.html",
+		output : "preparation/index.html",
 		source : "templates/pages/preparation.html",
 		data : {}
 	},
 
 	{
-		output : "transitions.html",
+		output : "transitions/index.html",
 		source : "templates/pages/transitions.html",
 		data : {}
 	},
 
 	{
-		output : "resources.html",
+		output : "resources/index.html",
 		source : "templates/pages/resources.html",
 		data : {}
 	},
