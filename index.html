@@ -1,7 +1,7 @@
 <html>
 	<head>
-		<title>Overview</title>
-		<link rel="stylesheet" href="static/css/style.css" />
+		<title>Tutorial</title>
+		<link rel="stylesheet" href="/history-api-tutorial/static/css/style.css" />
 		<link rel="shortcut icon" href="http://media.netmagazine.futurecdn.net/sites/all/themes/netmag/favicon.ico" type="image/x-icon" />
 	</head>
 	<body>
@@ -12,7 +12,7 @@
 						<img src="http://media.netmagazine.futurecdn.net/sites/all/themes/netmag/logo.png" alt="Netmagazine logo" />
 						<small class="muted">Tutorial</small>
 					</a>
-					<h2 class="muted">A Foundation for Successful History management</h2>
+					<h2 class="muted">A Foundation for using pushState</h2>
 				</div>
 			</header>
 
@@ -20,98 +20,566 @@
 				<div class="row-fluid">
 					<nav role="main" class="span3">
 						<ol class="nav nav-list">
-							<li><a href="index.html">Overview</a></li>
-							<li><a href="preparation.html">Prep</a></li>
-							<li><a href="transitions.html" data-history="true">Transitions</a></li>
-							<li><a href="resources.html" data-history="true">Resources</a></li>
+							<li><a href="/history-api-tutorial/">Tutorial</a></li>
+							<li><a href="/history-api-tutorial//poll">Modal Example</a></li>
+							<li><a href="/history-api-tutorial//page">Page Example</a></li>
 						</ol>
 					</nav>
 
 					<div class="span9 overview" data-transitional="content" data-transitional-id="default">
 						
 
-	<h1 class="title"><strong>/Overview/</strong>HTML5 History API</h1>
-	<p class="lead">Front-end developer <i>Christian Shum-Harden</i> of <a href="http://ff0000.com">RED Interactive Agency</a> demonstrates some best practices and strategies when preparing to use the  HTML5 History API.</p>
+	<h1 class="title"><strong>/JavaScript/</strong>A Foundation for using pushState</h1>
+	<p class="lead">Front-end developer <i>Christian Shum-Harden</i> of <a href="http://ff0000.com">RED Interactive Agency</a> demonstrates some strategies and best practices when using the HTML5 History API.</p>
 
 	<div class="tutorial">
-		<table class="requirements table table-striped table-condensed">
-			<thead></thead>
-			<tbody>
-				<tr>
-					<td>Knowledge Needed</td>
-					<td>HTML, JavaScript</td>
-				</tr>
-				<tr>
-					<td>Requires</td>
-					<td>Text editor, modern web browser, local webserver</td>
-				</tr>
-				<tr>
-					<td>Project Time</td>
-					<td>1 hour</td>
-				</tr>
-			</tbody>
-		</table>
+	<table class="requirements table table-striped table-condensed">
+		<thead></thead>
+		<tbody>
+			<tr>
+				<td>Knowledge Needed</td>
+				<td>HTML, JavaScript</td>
+			</tr>
+			<tr>
+				<td>Requires</td>
+				<td>Text editor, modern web browser, webserver, tolerance for internet memes</td>
+			</tr>
+			<tr>
+				<td>Project Time</td>
+				<td>1 hour</td>
+			</tr>
+		</tbody>
+	</table>
 
-		<p>
-			<strong>The HTML5 History API is a small collection of methods and events that enable us to manipulate the browser location and <b>history</b> without triggering a page refresh.</strong>
-		</p>
-
-		<p>
-			The History API is really small; at its core <b>pushState</b> changes the browser location-bar and triggers a <b>popstate</b> event.
+	<p>
+		<strong>
+			The HTML5 History API is a small collection of methods and events that enable us to manipulate the browser location and history without triggering a page refresh.
+		</strong>
+	</p>
+	<p>
+		The HTML5 History API is really small; at its core <b>history.pushState</b> changes the browser's URL bar and <b>window.onpopstate</b> informs us when the history stack changes in response to back/forward requests.
 <pre>
-window.addEventListener("popstate", function(e) { // list for the change
-	// location has changed
+window.addEventListener("popstate", function(e) { // listen for changes
+	console.log(e); // history changed
 });
 
-history.pushState({ foo: "bar"}, "Example Title", "/change/the/location"); // request a location change
+history.pushState({ foo: "bar"}, "Example Title", "/i/just/changed/the/location"); // request a location change
 </pre>
-			The URL in our location-bar changed and the browser doesn't reload.
-			For such a simple result, the outcome is strikingly important; we've just inherited the most crucial responsibility of the internet - we must respond to a URL request with an accurate result.
-		</p>
+	</p>
+	<p>
+
+	</p>
+	<p>
+		You've probably heard the term <b><i>"pushState"</i></b> used synonomously with the HTML5 History API.
+		<b><i>"pushState"</i></b> is the collection of strategies and techniques used with the History API to successfully navigate the browser from one URL to another witout a reload.
+		The History API is a specification that's simple, useful, and just works™ while <b><i>pushState</i></b> strategies are vast, varied, and subject to the needs of your project.
+		In this tutorial we'll experiment with various techniques that promote a flexible and successful <b><i>pushState</i></b> framework.
+	</p>
+
+	<p>
+		<b><i>"pushState"</i></b> is the strategy of overriding the browser's default URL navigation routine in order to manually manage URL requests in JavaScript.
+		In this tutorial we'll examine some advantages to using <b><i>pushState</i></b> and experiment with various techniques that promote a flexible, reusable, and successful <b><i>pushState</i></b> strategy.
+		Here's a quick overview of what we're going to cover:
+		<ul>
+			<li>URL design and the affectiveness of a traditional web architecure and why it matters for <b><i>pushState</i></b>.</li>
+			<li>Variances in browser History API implementations.</li>
+			<li>Develop a simple <b><i>pushState</i></b> JavaScript URL manager.</li>
+			<li>Animation techniques when transitioning between page states.</li>
+			<li>Measured and percieved advantages of <b><i>pushState</i></b> load-time optimization.</li>
+		</ul>
+	</p>
+
+
+
+
+
+	<p>
+		If you'd prefer to slam your way through <b><i>pushState</i></b>, then have a look at the <a href="https://github.com/browserstate/ajaxify/blob/master/ajaxify-html5.js">ajaxify-html5.js</a> script that "ajaxifies your entire website instantly".
+		Ajaxify "hijacks" your site's anchors with <b>pushState</b> in order to ajax-load and cross-fade between page requests.
+		It showcases some valuable solutions for parsing document titles, handling incoming CSS and JavaScript resources, and selecting other tricky markup blocks.
+		<figure>
+			<img src="/history-api-tutorial/static/img/didnt-read.jpg" alt="LOL Didn't read">
+			<figcaption class="muted">
+				The Ajaxify script is actually a great crash course in brute-forcing the History API into your site.  Milage may vary.
+			</figcaption>
+		</figure>
+	</p>
+
+
+
+
+
+
+
+<!--
+	<p>
+		When we navigate from one URL to another, our browser typically replaces the contents of the current URL with the contents of the requested URL.
+		The <b>pushState</b> technique uses the History API to override this default behavior.
+	</p>
+	<p>
+		We'll discuss various advantages and opportunties that <b>pushState</b>	exposes and
+		<b>pushState</b>
+		mmay not seem apparent, push state strategy has advantages, opportunties
+	</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ in order to persist the last document and push the responsibility of retrieving the next document to your JavaScript.
+
+	<p>Spoiler alert, we won't spend much (any) time perusing the various properties,
+		Mozilla's <a href="https://developer.mozilla.org/en-US/docs/DOM/window.history" target="_blank">window.history</a> reference is the most complete and conclussive developer documentation on the HTML5 History API.
+	<p>
+		While the HTML5 History API is actually really small, the <b>pushState</b> technique
+	</p>
+	<p>
+		When we navigate from one URL to another, our browser replaces the current document with a new document.
+		The <b>pushState</b> technique overrides this behavior in favor of manual URL and state management in JavaScript.
+	</p>
+	<p>
+		We'll discuss various advantages and opportunties that <b>pushState</b>	exposes and
+		<b>pushState</b>
+		mmay not seem apparent, push state strategy has advantages, opportunties
+	</p>
+	<p>
+		When we navigate from one URL to another, we expect our browser to replace the current document with a new document.
+
+		The History API is really small; at its core <b>history.pushState</b> updates the browser's location-bar and <b>window.onpopstate</b> informs us when the history changes.
+		Try it out by running the following code in your browser's JavaScript console.
+<pre>
+window.addEventListener("popstate", function(e) { // listen for changes
+console.log(e); // history changed
+});
+
+history.pushState({ foo: "bar"}, "Example Title", "/i/just/changed/the/location"); // request a location change
+</pre>
+		<b>history.pushState</b> updates the location-bar. <b>Nothing. Else. Happens.</b>
+		No browser refresh. (yay!)
+		No logged event (hmm...)
+		No URL is fetched or document loaded. ()
+		Now hit your browser's BACK button.
+
+
+	</p>
+
+	<p>
+		Locate and display the contents of a URL.
+
+		It's really the core function of a browser right?
+		The History API drops that responsibility in our lap
+		Overriding this behavior doesn't mean
+		URLs are the fabric of the internet so we'll want to think critically about our approach and goals for overriding years of browser routine and experience.
+	</p>
+
+	<p>
+		This tutorial aims to and provide a thoughtful <b>pushState</b> approach and examine factors that affect
+		that's flexible for your project needs and adaptive to your user's needs.
+
+		; to do so we will:
+		<ul>
+			<li>Study URL design and the affectiveness of a traditional web architecure and why it matters for <b>pushState</b>.</li>
+			<li>Discuss the tradeoffs of polyfilling or normalizing support across varying browser History API implementations.</li>
+			<li>Develop a simple <b>pushState</b> JavaScript solution to manage incoming and outgoing URL requests.</li>
+			<li>Analyize some animation techniques when transitioning between page states.</li>
+			<li>Discuss the measured and percieved advantages of <b>pushState</b> load-time optimization.</li>
+		</ul>
+	</p>
+
+-->
+	<p>
+		If you'd prefer to slam your way through <b>pushState</b>, then have a look at the <a href="https://github.com/browserstate/ajaxify/blob/master/ajaxify-html5.js">ajaxify-html5.js</a> script that "ajaxifies your entire website instantly".
+		Ajaxify "hijacks" your site's anchors with <b>pushState</b> in order to ajax-load and cross-fade between page requests.
+		It showcases some valuable solutions for parsing document titles, handling incoming CSS and JavaScript resources, and selecting other tricky markup blocks.
+		<figure>
+			<img src="/history-api-tutorial/static/img/didnt-read.jpg" alt="LOL Didn't read">
+			<figcaption class="muted">
+				The Ajaxify script is actually a great crash course in brute-forcing the History API into your site.  Milage may vary.
+			</figcaption>
+		</figure>
+	</p>
+
+	<p>
+		Since you're still here, let's get started!
+		You can download the example site at <a href="https://github.com/potench/history-api-tutorial/archive/gh-pages.zip">http://bit.ly/107wM2S</a> unzip it and serve it on your local webserver.
+		Our example site is acutally this tutorial in an HTML stack.
+		You can follow the tutorial AND view the source code that we're discussing in once place!
+		<figure>
+			<img src="/history-api-tutorial/static/img/unzip.jpg" alt="Example folder structure">
+			<figcaption class="muted">
+				Our static website example uses Twitter's bootstrap, jQuery, jQuery transit, and history.js.
+			</figcaption>
+		</figure>
+	</p>
+
+	<aside class="well">
 		<p>
-			URLs are the fabric of the internet so we'll want to think critically about our approach and goals for overriding years of browser experience and care.
-			This tutorial aims to provide a foundation of knowledge and thoughtfulness around the History API by:
-			<ul>
-				<li>Studying URL design and the affectiveness of a traditional web architecure with and without the History API</li>
-				<li>Using the History API to develop a flexible but reliable site framework that promotes the iterative improvement of load-time, enhanced interactivity, and elegant page transitions.</li>
-				<li>Approaching pushState from an adaptive perspective that balances the tradeoffs of missing or varying browser History API implementations.</li>
-			</ul>
+			You might notice that the root of our <a href="https://github.com/potench/history-api-tutorial/">example site GitHub repo</a> is using a Node based static website generator called <a href="http://github.com/ff0000/statix">Statix</a>.
+			This tutorial prioritizes flexibility and encourages creating opportunities for later iterative improvement.
+			While we won't be using the Statix code at all in this tutorial, it's worth mentioning that we can later replace Statix with a Django/python CMS implementation without much impact on our example site!
+			Remember this when we're prioritizing flexibile solutions that favor server-side optimization later in the tutorial.
 		</p>
-		<p>
-			If you'd prefer to slam your way through <b>pushState</b>, then have a look at the <a href="https://github.com/browserstate/ajaxify/blob/master/ajaxify-html5.js">ajaxify-html5.js</a> script that "ajaxifies your entire website instantly".
-			It "hijacks" all your site URLs and cross-fades between page requests.
-			<figure>
-				<img src="static/img/didnt-read.jpg" alt="LOL Didn't read">
-				<figcaption class="muted">
-					The ajaxify-html5.js script is actually a great crash course in brute-forcing the History API into your site.
-					The script showcases some valuable solutions for parsing and loading titles, CSS, and JavaScript resources from incoming pages.
-				</figcaption>
-			</figure>
+	</aside>
+</div>
+
+<!--//
+
+<p>
+			Let's take a quick look at these methods before
+			To change the browser location, run the following code in your browser's JavaScript console:
+			Mozilla's <a href="https://developer.mozilla.org/en-US/docs/DOM/window.history" target="_blank">window.history</a> reference is the most complete and conclussive developer documentation on the HTML5 History API.
+<pre>
+history.pushState(
+	{ foo: "bar"},  // a data object that becomes window.state.data
+	"Example Title",
+	"/i/just/changed/the/location"
+);
+</pre>
+
 		</p>
 
-		<p>
-			Since you're still here, let's get started!
-			You can download the example site at <a href="https://github.com/potench/history-api-tutorial/archive/gh-pages.zip">http://bit.ly/107wM2S</a> unzip it and serve it on your local webserver.
-			Our example site is acutally this tutorial in an HTML stack.
-			You can follow the tutorial AND view the source code that we're discussing in once place!
-			<figure>
-				<img src="static/img/unzip.jpg" alt="Example folder structure">
-				<figcaption class="muted">
-					Our static website example uses Twitter's bootstrap, jQuery, jQuery transit, and history.js.
-				</figcaption>
-			</figure>
-		</p>
+		This tutorial focused
+		The tricky part is mangaing thoughtfully states
+		We'll use this technique to expose some interesting advantages and opportunties in JavaScript.
+		Overriding the default browser routine of clearing and replacing URL
+		<ul>
+			<li>Persist portions of the previous document that aren't going to change in order to reliably reduce the amount of data we request.</li>
+			<li>Create custom transitons between changing states in order to provide a more elegant experience.</li>
 
-		<aside class="well">
-			<p>
-				You might notice that the root of our <a href="https://github.com/potench/history-api-tutorial/">example site GitHub repo</a> is using a Node based static website generator called <a href="http://github.com/ff0000/statix">Statix</a>.
-				This tutorial prioritizes flexibility and encourages creating opportunities for later iterative improvement.
-				While we won't be using the Statix code at all in this tutorial, it's worth mentioning that we can later replace Statix with a Django/python CMS implementation without much impact on our example site!
-				Remember this when we're prioritizing flexibile solutions that favor server-side optimization later in the tutorial.
-			</p>
-		</aside>
+		</ul>
+		This technique shifts the responsibility of state and URL management to JavaScript
+		exposes some interesting advantages and opportunties for us in JavaScript
+		While the HTML5 History API is small and concise, the strategies for implementing and supporting the <b>pushState</b> technique are broad and complex.
+	</p>
+By overriding the browser's default routine of navigating from one URL to the next, we've assumed the responsibility of eventually resolving the URL request.
+
+		As you can see above, the History API makes changing the URL really simple.
+
+
+
+
+<p>
+		Mozilla's <a href="https://developer.mozilla.org/en-US/docs/DOM/window.history" target="_blank">window.history</a> reference
+	</p>
+
+
+
+
+-->
+	<div class="tutorial">
+	<p>
+		In this section we'll lay the foundation for a customizable and stable History API implementation.
+		In order to minimize intrusive "page-aware" JavaScript, we'll focus on providing a traditional web architecture with semantic URL design.
+	</p>
+
+	<h3 id="#url-design">1. Click...pop: URL all the things!</h3>
+	<p>
+		First, we organize our site into semantic URLs that snap each page and page-state into existence on demand:
+<pre>
+&lt;a href="overview/"&gt;Overview&lt;/a&gt;
+&lt;a href="preparation/"&gt;Prep&lt;/a&gt;
+</pre>
+	</p>
+	<p>
+		Nothing new here, we're purposefully limiting URL-access to anchors in our HTML templates.
+		Try navigating to this <a href="test-1.html">Test Page</a>... the full page-reload is abrupt but we're used to that on a page-level.
+	</p>
+
+	<p>
+		Now, try clicking and popping your way through the <a href="preparation.html?poll=start">Star Wars Poll</a> overlay example.
+
+		<figure>
+			<a href="preparation.html?poll=start"><img src="/history-api-tutorial/static/img/han-solo-poll.jpg" alt="Han Solo Poll"></a>
+			<figcaption class="muted">
+				Page-reloading feels disjointed and sudden, making it easy to lose focus.
+			 	Hang in there, we're almost ready to fix it!
+			</figcaption>
+		</figure>
+
+		It's really disorienting, but we're only concerned right now with providing semantic URLs for each page and state.
+	</p>
+
+	<p>
+		Our example site is entirely static (no server-side components).
+		In absence of server-side scripting our <a href="preparation.html?poll=start">Star Wars Poll</a> requires JavaScript to render.
+<pre>
+switch (this.qs.poll) { //
+case 'start':
+	$poll.removeClass("hidden");
+	$pollStart.removeClass("hidden");
+	$pollForm.on("submit", $.proxy(this.onSubmitPoll, this));
+	break;
+case 'results':
+	$poll.removeClass("hidden");
+	$pollResults.removeClass("hidden");
+	break;
+default:
+	break;
+}
+</pre>
+	</p>
+	<p>
+		We don't want a JavaScript dependence, how can maintain the "overlay" affect without JavaScript?
+		Web-development often requires managing trade-offs - so let's look at this common overlay example.
+	</p>
+
+	<p>
+		Ultimately, a JavaScript dependent state is not optimized for intial perceived load-time or SEO.
+		Meaning, the DOM needs to load everything before JavaScript can manually deliver the desired state.
+		Though your filesize is the same, your user percieves this wait as a slower load-time.
+	</p>
+	<p>
+		Let's be flexible and assume that one day we'll use a server-side script (such as Python or PHP) to optimize this request.
+		To prepare for that, we sacrifice the soft-load behaviour that a hash (#) provides for the flexibility that a querystring (?) provides.
+<pre>
+&lt;a href="preparation.html?poll=start"&gt;Star Wars Poll Start &lt;/a&gt;
+&lt;a href="preparation.html?poll=results"&gt;Star Wars Poll Results &lt;/a&gt;
+</pre>
+	</p>
+	<p>
+		Using a hash corners you into forever supporting this state with JavaScript.
+		In a moment we'll use <b>pushState</b> to gain back soft-load behaviour and later we can easily port the JavaScript <b>switch</b> to server-side script.
+	</p>
+
+	<aside id="poll" class="hidden">
+		<div class="container well">
+			<div class="alert alert-block">
+				<a href="preparation.html" class="close" data-dismiss="alert" title="Close">&times;</a>
+				<h4>Who would make a good new Han Solo?</h4>
+			</div>
+			<div class="start hidden">
+				<form method="get" action="preparation.html?poll=results">
+					<div class="answers well">
+						<label class="radio"><input type="radio" name="answer" value="1" id="78q8tanswer1"> Donald Glover</label>
+						<label class="radio"><input type="radio" name="answer" value="2" id="78q8tanswer2"> Taylor Kitsch</label>
+						<label class="radio"><input type="radio" name="answer" value="3" id="78q8tanswer3"> Nicolas Cage</label>
+					</div>
+					<button type="submit" name="poll" value="results" class="btn">Vote</button>
+				</form>
+			</div>
+			<div class="results hidden">
+				<h4>Poll Results</h4>
+				<dl class="dl-horizontal">
+					<dt>Donald Glover</dt>
+					<dd class="progress">
+						<div class="bar" style="width: 10%;"></div>
+					</dd>
+					<dt>Taylor Kitsch</dt>
+					<dd class="progress">
+						<div class="bar" style="width: 60%;"></div>
+					</dd>
+					<dt>Nicolas Cage</dt>
+					<dd class="progress">
+						<div class="bar" style="width: 80%;"></div>
+					</dd>
+				</dl>
+				<a href="preparation.html?poll=start" name="poll" value="start" class="btn">Vote Again</a>
+			</div>
+		</div>
+	</aside>
+
+
+
+	<h3>2. Normalize the History API with History.js</h3>
+
+	<p>
+		The History API isn't available in legacy browsers and unfortunately its implementation varies across modern browsers.
+		Well, "there's a <a href="https://github.com/browserstate/history.js" target="_blank">polyfill for that</a>":
+<pre>
+&lt;script src="https://raw.github.com/browserstate/history.js/master/scripts/uncompressed/history.adapter.jquery.js"&gt;&lt;/script&gt;
+</pre>
+	</p>
+
+	<p>
+		The <a href="https://github.com/browserstate/history.js" target="_blank">History.js</a> library does quite a few things:
+		<ul>
+			<li>Normalizes the HTML5 History API across modern browesers</li>
+			<li>Provides an HTML4 polyfill for legacy browser support using the hash</li>
+			<li>Provides adapters for common frameworks (we're using the jQuery adapter)</li>
+		</ul>
+	</p>
+
+	<p>
+		The HMTL4 History.js polyfill is optional and not included by default. Whew!
+		All that harping on URL design leaves us in the perfect position to "progressivly enhance" our site with <b>pushState</b>;
+		meaning we're safe to disregard HTML4 <b>pushState</b> support.
+	</p>
+
+	<figure>
+		<img src="http://i179.photobucket.com/albums/w297/Zombie_61/Miscellaneous/Luke_Oops.jpg" alt="Luke Oops">
+		<figcaption class="muted">
+			Hashes and Hashbangs open you to host of issues documented in the <a href="https://github.com/browserstate/history.js/wiki/Intelligent-State-Handling">History.js wiki</a>.
+			Let's not use the HTML4 polyfill
+		</figcaption>
+	</figure>
+
+	<p>
+		We've included the HTML5 History.js normalizer in our template, so let's start listening for <b>pushState</b> events!
+		In the <b>addListeners</b> method, this line listens for state changes:
+<pre>
+// Note we use uppercase "History" object
+// Note "statechange" event instead of "popstate" event
+History.Adapter.bind(window, 'statechange', $.proxy(this.onStateChange, this));
+</pre>
+		Notice that History.js's syntax is different from the HTML5 spec for the History API.
+	</p>
+
+
+	<h3>3. Hijack the anchors</h3>
+
+	<p>
+		Instead of hijacking all the links on the site, I prefer to provide "opt-in" hijacking using a <b>data-history</b> attribute.
+		In the <b>addListeners</b> method, this line hijacks any element that has the <b>data-history</b> attribute.
+<pre>
+$(document).on("click", '[data-history="true"]', $.proxy(this.onClickHistory, this));
+</pre>
+		When you click on a <b>data-history</b> element, we override the default anchor behavior in the <b>onClickHistory</b> method.
+<pre>
+onClickHistory : function (e) {
+var targ = $(e.currentTarget),
+	data = $.extend(targ.data(),
+		{
+			href : targ.attr("href"),
+			title : targ.attr("title")
+		});
+
+
+History.pushState(data, data.title, data.href); // push the new URL up
+
+e.preventDefault();
+return false;
+},
+</pre>
+		<b>onClickHistory</b> merges the anchor's <b>href</b> and <b>title</b> into a <b>data</b> object, triggers a new <b>pushState</b> event, and cancels the original event to prevent a full-page refresh.
+	</p>
+
+<h3>4. Ajax in new content</h3>
+
+	<p>
+		Our semantic anchor tags have all the data we need to politely fetch the requested resources.
+		Let's test this out by navigating to our <a href="test-1.html" title="Test Page" data-history="true">Test Page</a>.
+		You can even hit your brower's "back" button to come back with a <b>pushState</b> transition.
+<pre>
+&lt;a href="test-1.html" data-history="true" title="Test Page"&gt;Test Page&lt;/a&gt;
+</pre>
+		<b>onStateChange</b> gets notified of the state change
+<pre>
+onStateChange : function (e) {
+State = History.getState(); // Note: We are using History.getState() instead of event.state
+// ...
+}
+</pre>
+		and attempts to load the requested URL using <b>ajax</b>.
+<pre>
+this.xhr = $.ajax({
+url: State.url,
+dataType: "html",
+success: $.proxy(this.onLoadSuccess, this),
+error : $.proxy(this.onLoadError, this)
+}); // fetch the URL
+</pre>
+	</p>
+
+	<p>
+		We haven't optimized our ajax requests for load-time performance.
+		Optimizing load-time performance requires some careful partial-file organization and/or server-side ajax-sniffing to conditionally load only changing content.
+		Currently, we're loading the request as is and hoping that incoming content is formatted to our needs.
+<pre>
+var $content = $('[data-transitional="content"]'); // current page content
+</pre>
+		We anticipate incoming content to be identified by a <b>data-transitional</b> attribute.
+		This is our custom format for identifying blocks of data that are likely to change across URL requests.
+		Ideally we would only load the data we need, but until then, using a <b>data-transitional</b> marker will help keep your requests organized.
+	</p>
+
+	<h3>5. Transition new content in.</h3>
+	<p>
+
+		//// need to finish this section
+	</b>
+</div>
+	<aside class="well">
+	<div class="tutorial">
+		<h3>URL all the things!</h3>
+		<p>
+			The URL is the first thing a user sees and associates with your site - it's our first opportunity to make a good impression.
+			URLs semantically describe incoming content and immediately offer the most basic form of interactivity (navigating, sharing, or bookmarking).
+		</p>
+		<p>
+			URLs are a ubiquitous syntax for <i>locating resources</i> and browsers continue to implement and explore innovative features that extend the navigational properties of a simple URL.
+			Modern browser location-bars suggest or auto-complete URLs as you type.
+			Social sharing tools use URLs and metadata to seed contextual, meaningful snippets of your site to networks of people.
+			New devices with touch, sight, or yet-unknown interactive properties implement history back/forward navigation through gestures, hot-keys, and other custom hardware APIs.
+			Bookmarking, indexing, and topic-trending tools rely on semantic URLs to organize, surface, and deliver relevant content.
+		</p>
+		<p>
+			Basically, URLs are holding this thing called the internet together.
+			And as the internet rapidly evolves you'll be best prepared for the future by analyzing and benchmarking your URL design strategy.
+			Jonas Jacek documented some best practices and strategies for architecting and <a href="http://rield.com/how-to/url-design" target="_blank">designing clean, usable URLs</a>.
+			Also, Kyle Neath's article on <a href="http://warpspire.com/posts/url-design/" target="_blank">"URL design"</a> provides some examples, deep discussion, and is really a great read!
+		</p>
+		<figure>
+			<img src="/history-api-tutorial/static/img/url-all-the-things.jpg" alt="URL all the things">
+			<figcaption>Take the time to architect and design semantic URLs for all the parts of your site before implementing pushState.</figcaption>
+		</figure>
+		<p>
+			In the past we had a choice: sacrifice traditional URL design and use a hash (#) to manually manage state, or use a traditional URL and hard-reload all your links.
+			With <b>pushState</b> we get both!
+			Define and organize all your content around pragmatic traditional URLs.
+			You can use pushState later to optimize requests and improve the browsing experience with animations and transitions knowing that your content is still reliably reachable.
+			Minimize JavaScript-dependent states; they aren't flexible and supporting them can encumber and muddy your JavaScript framework.
+			Prioritizing URL design on your project removes a lot of questions later making it easier for other developers to support and extend your work.
+		</p>
 	</div>
-
+</aside>
+	<aside class="well">
+	<div class="tutorial">
+		<h3>GitHub's thoughtful pushState approach</h3>
+		<p>
+			GitHub uses <a href="https://github.com/defunkt/jquery-pjax/" target="_blank">jquery-pjax</a> (pushState + ajax) on their <a href="https://github.com/blog/760-the-tree-slider" target="_blank">Tree-slider</a> feature at github.com.
+			The Tree-slider is an interface for navigating the contents of your git repository; a micro Finder or Folder browser built in HTML.
+			Keyboard navigation (forward/backward) becomes essential when quickly navigating through a directory.
+			The Tree-finder uses pushState to preserve navigation history and optimize load-times by requesting only the data it needs using ajax.
+			<figure>
+				<img src="/history-api-tutorial/static/img/tree-slider.jpg" alt="Tree-Slider">
+				<figcaption class="muted">
+					On pushState enabled browers, GitHub's Tree-Slider optimizes load-times and animates between directories based on your path through the directory tree.
+				</figcaption>
+			</figure>
+		</p>
+		<p>
+			Content transitions from left to right when drilling down to sub-directories; and right to left when moving up your directory tree.
+			This simple animation reinforces the concept of hierarchy and position; navigating a directory becomes subtly easier.
+			It also provides a nice visual stimulant between the text-heavy directory contents.
+		</p>
+		<p>
+			The developers at GitHub have provided some great resources on various topics related to the History API and state-management.
+			Kyle Neath's presentation slides on <a href="http://warpspire.com/talks/responsive/" target="_blank">"Responsive web design from the future"</a> discuss pushState, hashbangs (!#), URL design, and other modern development considerations.
+			I'm sad I missed this presentation, but the slides are informative on their own.
+			He also shared a prototype showcasing <a href="http://warpspire.com/experiments/history-api/" target="_blank">Infinite Scroll with the HTML5 History API</a>.
+			Ininite-scroll is great for speeding through a lot of data, but the lack of state management makes navigating away or sharing a real nuisance.
+			Neath's pushState solution enables sharing, reloading, or navigating back to the correct state within the infinite result set.
+		</p>
+		<p>
+			The Tree-slider and Infinite Scroll examples also teach us an excellent lesson in self-editing.
+			GitHub thoughtfully implemented pushState in a specific way for a single feature - not across the entire site.
+			You don't need to "ajaxify" your entire site to use the History API!
+			Identify modules or features of your site where pushState can really improve the experience in simple and meaningful ways.
+			You should, however, be mindful of multiple modules that use pushState on the same page - they can unintentionally clobber each other's requests.
+		</p>
+	</div>
+</aside>
 
 					</div>
 				</div>
@@ -119,12 +587,12 @@ history.pushState({ foo: "bar"}, "Example Title", "/change/the/location"); // re
 			<footer>
 
 			</footer>
-			<script src="static/js/libs/jquery.js"></script>
-			<script src="static/js/libs/jquery.history.js"></script>
-			<script src="static/js/libs/jquery.transit.js"></script>
+			<script src="/history-api-tutorial/static/js/libs/jquery.js"></script>
+			<script src="/history-api-tutorial/static/js/libs/jquery.history.js"></script>
+			<script src="/history-api-tutorial/static/js/libs/jquery.transit.js"></script>
 
 			
-			<script src="static/js/prep.js"></script>
+			<script src="/history-api-tutorial/static/js/prep.js"></script>
 			
 		</div>
 	</body>
